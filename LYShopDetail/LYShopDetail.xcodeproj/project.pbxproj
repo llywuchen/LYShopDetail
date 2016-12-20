@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AC186BE1E093F6500F2A74D /* LYSelectBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC186BC1E093F6500F2A74D /* LYSelectBar.framework */; };
+		0AC186BF1E093F6500F2A74D /* LYSelectBar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC186BC1E093F6500F2A74D /* LYSelectBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0AC186C01E093F6500F2A74D /* Masonry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC186BD1E093F6500F2A74D /* Masonry.framework */; };
+		0AC186C11E093F6500F2A74D /* Masonry.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC186BD1E093F6500F2A74D /* Masonry.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0AEB6E2E1E07929B004D47DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB6E2D1E07929B004D47DF /* main.m */; };
 		0AEB6E311E07929B004D47DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB6E301E07929B004D47DF /* AppDelegate.m */; };
 		0AEB6E341E07929B004D47DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB6E331E07929B004D47DF /* ViewController.m */; };
@@ -15,7 +19,24 @@
 		0AEB6E3C1E07929B004D47DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AEB6E3A1E07929B004D47DF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0AC186C21E093F6500F2A74D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0AC186C11E093F6500F2A74D /* Masonry.framework in Embed Frameworks */,
+				0AC186BF1E093F6500F2A74D /* LYSelectBar.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0AC186BC1E093F6500F2A74D /* LYSelectBar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LYSelectBar.framework; path = ../Carthage/Build/iOS/LYSelectBar.framework; sourceTree = "<group>"; };
+		0AC186BD1E093F6500F2A74D /* Masonry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Masonry.framework; path = ../Carthage/Build/iOS/Masonry.framework; sourceTree = "<group>"; };
 		0AEB6E291E07929B004D47DF /* LYShopDetail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYShopDetail.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AEB6E2D1E07929B004D47DF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0AEB6E2F1E07929B004D47DF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -33,6 +54,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AC186C01E093F6500F2A74D /* Masonry.framework in Frameworks */,
+				0AC186BE1E093F6500F2A74D /* LYSelectBar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +65,8 @@
 		0AEB6E201E07929B004D47DF = {
 			isa = PBXGroup;
 			children = (
+				0AC186BC1E093F6500F2A74D /* LYSelectBar.framework */,
+				0AC186BD1E093F6500F2A74D /* Masonry.framework */,
 				0AEB6E2B1E07929B004D47DF /* LYShopDetail */,
 				0AEB6E2A1E07929B004D47DF /* Products */,
 			);
@@ -89,6 +114,7 @@
 				0AEB6E251E07929B004D47DF /* Sources */,
 				0AEB6E261E07929B004D47DF /* Frameworks */,
 				0AEB6E271E07929B004D47DF /* Resources */,
+				0AC186C21E093F6500F2A74D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -272,6 +298,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = LYShopDetail/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lly.franklin.LYShopDetail;
@@ -283,6 +310,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../Carthage/Build/iOS";
 				INFOPLIST_FILE = LYShopDetail/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lly.franklin.LYShopDetail;
@@ -309,6 +337,7 @@
 				0AEB6E421E07929B004D47DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
