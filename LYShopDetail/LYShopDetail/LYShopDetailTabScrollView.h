@@ -10,15 +10,13 @@
 
 @interface LYShopDetailTabScrollView : UIView
 
-- (instancetype)initWithVShopId:(long)shopId;
-
-//- (void)bindData:(id)data;
+- (instancetype)initWithShopId:(long)shopId;
 
 - (void)reloadData;
 
 - (void)loadDefaultData;
 
-- (void)setContentOffset:(CGFloat)offset;
+//- (void)setContentOffset:(CGFloat)offset;
 
 - (void)setCouldScroll:(BOOL)scrollEnabled;
 

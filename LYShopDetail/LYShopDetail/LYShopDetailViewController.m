@@ -6,9 +6,13 @@
 //  Copyright © 2016年 franklin. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "LYShopDetailViewController.h"
 #import "LYShopDetailHeaderView.h"
 #import "LYShopDetailScrollView.h"
+#import "LYShopDetailTabScrollView.h"
+#import "LYShopDetailCollectionView.h"
+
+#import "LYShopDetailViewModel.h"
 
 #pragma mark -
 #pragma mark ------------------GMPShopDetailBottomView-----------------------------------
@@ -69,7 +73,7 @@
 
 #pragma mark -
 #pragma mark - ViewController
-@interface ViewController () <LYSelectTabBarDelegate,UIScrollViewDelegate>
+@interface LYShopDetailViewController () <LYSelectTabBarDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) UIScrollView *mianScrollView;
 @property (nonatomic,strong) UIView *contentView;
@@ -78,12 +82,15 @@
 @property (nonatomic,strong) LYShopDetailScrollView *scrollView;
 @property (nonatomic,strong) LYShopDetailBottomView *bottomView;
 
+@property (nonnull,strong) LYShopDetailViewModel *viewModel;
+
 @end
 
-@implementation ViewController
+@implementation LYShopDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.viewModel = [[LYShopDetailViewModel alloc]init];
     [self.view addSubview:self.mianScrollView];
     _contentView = [[UIView alloc]init];
     [self.mianScrollView addSubview:_contentView];
@@ -94,6 +101,7 @@
     [self configureBottomView];
     
     [self configureContraints];
+    [self bindViewModel];
 }
 
 
@@ -103,7 +111,11 @@
 }
 
 - (void)configureScrollView{
-    _scrollView = [[LYShopDetailScrollView alloc]init];
+    _scrollView = [[LYShopDetailScrollView alloc]initWithSubViews:@[
+                  [[LYShopDetailCollectionView alloc]init],
+                  [[LYShopDetailTabScrollView alloc]initWithShopId:0],
+                  [[LYShopDetailCollectionView alloc]init],
+                  [[LYShopDetailCollectionView alloc]init]]];
     [_contentView addSubview:self.scrollView];
 }
 
@@ -149,12 +161,35 @@
     }];
 }
 
-
+- (void)bindViewModel{
+    @weakify(self)
+    [RACObserve(self.viewModel,shopInfo) subscribeNext:^(id  _Nullable x) {
+        @strongify(self)
+        LYShopDetailInfo *info = x;
+        [self.headerView bindData:info.bgImage icon:info.icon name:info.name level:info.level fansCount:info.fansCount isConcern:info.isConcern];
+    }];
+    
+    [RACObserve(self.viewModel, homeDataSource) subscribeNext:^(id  _Nullable x) {
+        LYShopDetailCollectionView *view = (LYShopDetailCollectionView *)[self.scrollView subScorllViewAtIndex:0];
+        [view bindData:x];
+        [view setTotalPage:self.viewModel.homeTotalPage];
+    }];
+    [RACObserve(self.viewModel, newsDataSource) subscribeNext:^(id  _Nullable x) {
+        LYShopDetailCollectionView *view = (LYShopDetailCollectionView *)[self.scrollView subScorllViewAtIndex:2];
+        [view bindData:x];
+        [view setTotalPage:self.viewModel.newTotalPage];
+    }];
+    [RACObserve(self.viewModel, dymicDataSource) subscribeNext:^(id  _Nullable x) {
+        LYShopDetailCollectionView *view = (LYShopDetailCollectionView *)[self.scrollView subScorllViewAtIndex:3];
+        [view bindData:x];
+        [view setTotalPage:self.viewModel.dymicTotalPage];
+    }];
+}
 #pragma mark -
 #pragma mark - getter and setter
 - (LYSelectTabBar *)selectBar{
     if(!_selectBar){
-        _selectBar = [[LYSelectTabBar alloc]initTitles:@[@"店铺首页",@"全部宝贝",@"新品上架",@"微淘动态"] images:@[@"tab1",@"tab2",@"tab3",@"tab4"] selectImages:@[@"tab1-on",@"tab2-on",@"tab3-on",@"tab4-on"] indicatorImage:nil];
+        _selectBar = [[LYSelectTabBar alloc]initTitles:self.viewModel.tabBarTitleArray images:self.viewModel.tabBarTitleImageArray selectImages:self.viewModel.tabBarTitleSelImageArray indicatorImage:nil];
         _selectBar.delegate = self;
     }
     
@@ -177,6 +212,9 @@
 #pragma mark - delegate
 - (void)tabBar:(LYSelectTabBar *)tabBar didSelectButtonFrom:(NSInteger)from to:(NSInteger)to{
     NSLog(@"didSelectButtonFrom %ld to %ld",from,to);
+    if(from==to) return;
+    [self.scrollView showSubView:to];
+    [self.viewModel showTabActionAtIndex:to];
 }
 
 - (void)tabBar:(LYSelectTabBar *)tabBar willSelectButtonFrom:(NSInteger)from to:(NSInteger)to{

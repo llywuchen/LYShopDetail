@@ -10,4 +10,5 @@
 
 @interface LYShopDetailHeaderView : UIView
 
+- (void)bindData:(NSString *)bg icon:(NSString *)icon name:(NSString *)name level:(NSInteger)level fansCount:(NSInteger)fansCount isConcern:(BOOL)isConcern;
 @end

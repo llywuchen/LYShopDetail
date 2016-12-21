@@ -171,7 +171,7 @@
     }];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.headerIcon).offset(5);
+        make.left.equalTo(self.headerIcon.mas_right).offset(5);
         make.right.equalTo(self.fansLabel.mas_left).offset(5);
         make.top.equalTo(self.headerIcon);
         make.height.equalTo(self.headerIcon).dividedBy(2);

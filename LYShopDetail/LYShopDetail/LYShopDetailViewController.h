@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <LYSelectBar/LYSelectTabBar.h>
 
-@interface ViewController : UIViewController
+@interface LYShopDetailViewController : UIViewController
 
 
 @end

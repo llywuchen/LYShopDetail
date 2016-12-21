@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class LYCommonCollectionView;
+#import "LYCommonCollectionView.h"
 
 @interface LYShopDetailCollectionView : UIView<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
