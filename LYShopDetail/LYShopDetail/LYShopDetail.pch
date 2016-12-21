@@ -1,0 +1,25 @@
+//
+//  LYShopDetail.pch
+//  LYShopDetail
+//
+//  Created by lly on 2016/12/21.
+//  Copyright © 2016年 franklin. All rights reserved.
+//
+
+#ifndef LYShopDetail_pch
+#define LYShopDetail_pch
+
+#ifdef __OBJC__
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+#import <Masonry/Masonry.h>
+#import "UIColor+GGColor.h"
+
+#define kScreenWidth [[UIScreen mainScreen] bounds].size.width
+#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
+
+#endif
+
+#endif /* LYShopDetail_pch */

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Masonry/Masonry.h>
 #import <LYSelectBar/LYSelectTabBar.h>
 
 @interface ViewController : UIViewController
