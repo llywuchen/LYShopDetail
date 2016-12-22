@@ -7,6 +7,7 @@
 //
 
 #import "LYShopDetailUserCase.h"
+#import "LYShopProductCollectionCellViewModel.h"
 
 @implementation LYShopDetailInfo
 
@@ -40,8 +41,11 @@
                                  Success:(void(^)(NSArray *))successBlock
                                     fail:(void(^)(NSString *errorMsg))failBlock{
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        LYShopDetailInfo *info = [LYShopDetailInfo testInfo];
-        successBlock(nil);
+        NSMutableArray *array = [NSMutableArray arrayWithObject:[LYShopProductCollectionCellViewData testInfo]];
+        for(int i=0;i<35;i++){
+            [array addObject:[LYShopProductCollectionCellViewData testInfo]];
+        }
+        successBlock(array);
     });
 }
 

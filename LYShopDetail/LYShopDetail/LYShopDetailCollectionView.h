@@ -41,6 +41,6 @@
  设置CollectionView的HeaderView的高度
  */
 - (CGFloat)collectionHeaderHeight;
-- (void)setContentOffset:(CGFloat)offset;
+//- (void)setContentOffset:(CGFloat)offset;
 
 @end

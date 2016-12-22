@@ -11,6 +11,7 @@
 #import "LYShopDetailScrollView.h"
 #import "LYShopDetailTabScrollView.h"
 #import "LYShopDetailCollectionView.h"
+#import "LYShopDetailNavigationBar.h"
 
 #import "LYShopDetailViewModel.h"
 
@@ -49,18 +50,7 @@
     
     return self;
 }
-//- (void)bindData:(GMBShopExt *)shop{
-//    GMBXpopSupplier *shopSupplier = shop.shopSupplier;
-//    int typeNum = (int)shopSupplier.platformType;
-//    if (typeNum >2) {
-//        self.contractSellerBtn.enabled = NO;
-//    }else{
-//        self.contractSellerBtn.enabled = YES;
-//    }
-//    if (shop.userId == GMSingleUserInstance.userId) {
-//        self.contractSellerBtn.enabled = NO;
-//    }
-//}
+
 #pragma mark -
 #pragma mark - action
 - (void)addtarget:(id)target sel:(SEL)sel{
@@ -75,6 +65,7 @@
 #pragma mark - ViewController
 @interface LYShopDetailViewController () <LYSelectTabBarDelegate,UIScrollViewDelegate>
 
+@property (nonatomic,strong) LYShopDetailNavigationBar *navigationBar;
 @property (nonatomic,strong) UIScrollView *mianScrollView;
 @property (nonatomic,strong) UIView *contentView;
 @property (nonatomic,strong) LYShopDetailHeaderView *headerView;
@@ -91,6 +82,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.viewModel = [[LYShopDetailViewModel alloc]init];
+    [self.view addSubview:self.navigationBar];
     [self.view addSubview:self.mianScrollView];
     _contentView = [[UIView alloc]init];
     [self.mianScrollView addSubview:_contentView];
@@ -117,6 +109,26 @@
                   [[LYShopDetailCollectionView alloc]init],
                   [[LYShopDetailCollectionView alloc]init]]];
     [_contentView addSubview:self.scrollView];
+    
+    @weakify(self)
+    [self.scrollView setTranslationBlock:^(CGFloat offset) {
+        @strongify(self)
+        CGFloat y = self.mianScrollView.contentOffset.y;
+        if(offset>0){
+            self.mianScrollView.contentOffset = CGPointMake(0, MIN((y+offset),(self.mianScrollView.contentSize.height-self.mianScrollView.frame.size.height)));
+        }else if (offset<0){
+            self.mianScrollView.contentOffset = CGPointMake(0, MAX((y+offset),0));
+        }
+        if(offset>0&&!self.scrollView.couldScroll&&y==0){
+            self.scrollView.couldScroll = false;
+        }else if (offset<0&&self.scrollView.couldScroll&&y>0){
+            self.scrollView.couldScroll = false;
+        }else if(y>=160){
+            self.scrollView.couldScroll = true;
+        }else if (y==0){
+            self.scrollView.couldScroll = offset<=0?true:false;
+        }
+    }];
 }
 
 - (void)configureBottomView{
@@ -125,8 +137,14 @@
 }
 
 - (void)configureContraints{
+    [self.navigationBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.top.equalTo(self.view);
+        make.height.equalTo(@64);
+    }];
+    
     [self.mianScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(self.view);
+        make.top.equalTo(self.view).offset(64);
+        make.left.right.equalTo(self.view);
         make.bottom.equalTo(self.bottomView.mas_top);
     }];
     
@@ -187,6 +205,13 @@
 }
 #pragma mark -
 #pragma mark - getter and setter
+- (LYShopDetailNavigationBar *)navigationBar{
+    if(!_navigationBar){
+        _navigationBar = [[LYShopDetailNavigationBar alloc]init];
+    }
+    return _navigationBar;
+}
+
 - (LYSelectTabBar *)selectBar{
     if(!_selectBar){
         _selectBar = [[LYSelectTabBar alloc]initTitles:self.viewModel.tabBarTitleArray images:self.viewModel.tabBarTitleImageArray selectImages:self.viewModel.tabBarTitleSelImageArray indicatorImage:nil];
@@ -206,6 +231,17 @@
 //        _mianScrollView.backgroundColor = GM_JS_ORDER_COLOR_BG;
     }
     return _mianScrollView;
+}
+#pragma mark -
+#pragma mark ---- UISCrolloView delegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat y = scrollView.contentOffset.y;
+    if(y<=160&&y>=120){
+        y = -(y-120)/4;
+//        for(UIButton *btn in self.tabBar.titleBtnsArr){
+//            btn.titleEdgeInsets = UIEdgeInsetsMake(btn.titleEdgeInsets.top, btn.titleEdgeInsets.left, y, btn.titleEdgeInsets.right);
+//        }
+    }
 }
 
 #pragma mark -

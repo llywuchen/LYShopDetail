@@ -25,6 +25,10 @@
     }
     return  self;
 }
++ (instancetype)testInfo{
+    LYShopProductCollectionCellViewData *data = [[LYShopProductCollectionCellViewData alloc]initWithProductID:0 shopID:0 productMainImage:@"" productName:@"超强人工智能机器人九代III" productsalePrice:1898888 originalPrice:1898888 isRebate:YES isDiscount:YES onShelfAt:5435345345345];
+    return data;
+}
 @end
 
 

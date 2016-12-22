@@ -38,6 +38,7 @@ isRebate:(BOOL)isRebate
 isDiscount:(BOOL)isDiscount
 onShelfAt:(long long)onShelfAt;
 
++ (instancetype)testInfo;
 @end
 
 

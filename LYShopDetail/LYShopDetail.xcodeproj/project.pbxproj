@@ -26,6 +26,7 @@
 		0AC186EE1E0A7A7D00F2A74D /* LYShopDetailTabScrollViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC186ED1E0A7A7D00F2A74D /* LYShopDetailTabScrollViewModel.m */; };
 		0AC186F01E0A7FA300F2A74D /* ReactiveObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC186EF1E0A7FA300F2A74D /* ReactiveObjC.framework */; };
 		0AC186F11E0A7FA300F2A74D /* ReactiveObjC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC186EF1E0A7FA300F2A74D /* ReactiveObjC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0AC1875F1E0BDFE200F2A74D /* LYShopDetailNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC1875E1E0BDFE200F2A74D /* LYShopDetailNavigationBar.m */; };
 		0AEB6E2E1E07929B004D47DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB6E2D1E07929B004D47DF /* main.m */; };
 		0AEB6E311E07929B004D47DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB6E301E07929B004D47DF /* AppDelegate.m */; };
 		0AEB6E341E07929B004D47DF /* LYShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AEB6E331E07929B004D47DF /* LYShopDetailViewController.m */; };
@@ -81,6 +82,8 @@
 		0AC186EC1E0A7A7D00F2A74D /* LYShopDetailTabScrollViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYShopDetailTabScrollViewModel.h; sourceTree = "<group>"; };
 		0AC186ED1E0A7A7D00F2A74D /* LYShopDetailTabScrollViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYShopDetailTabScrollViewModel.m; sourceTree = "<group>"; };
 		0AC186EF1E0A7FA300F2A74D /* ReactiveObjC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveObjC.framework; path = ../Carthage/Build/iOS/ReactiveObjC.framework; sourceTree = "<group>"; };
+		0AC1875D1E0BDFE200F2A74D /* LYShopDetailNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYShopDetailNavigationBar.h; sourceTree = "<group>"; };
+		0AC1875E1E0BDFE200F2A74D /* LYShopDetailNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYShopDetailNavigationBar.m; sourceTree = "<group>"; };
 		0AEB6E291E07929B004D47DF /* LYShopDetail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYShopDetail.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AEB6E2D1E07929B004D47DF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0AEB6E2F1E07929B004D47DF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -116,6 +119,38 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		0AC1875B1E0BDF7100F2A74D /* ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				0AC186C61E0A33A900F2A74D /* LYShopDetailScrollView.h */,
+				0AC186C71E0A33A900F2A74D /* LYShopDetailScrollView.m */,
+				0AC186CA1E0A5A9700F2A74D /* LYShopDetailTabScrollView.h */,
+				0AC186CB1E0A5A9700F2A74D /* LYShopDetailTabScrollView.m */,
+				0AC186EC1E0A7A7D00F2A74D /* LYShopDetailTabScrollViewModel.h */,
+				0AC186ED1E0A7A7D00F2A74D /* LYShopDetailTabScrollViewModel.m */,
+			);
+			name = ScrollView;
+			sourceTree = "<group>";
+		};
+		0AC1875C1E0BDF8100F2A74D /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				0AC186CD1E0A5B3C00F2A74D /* LYShopDetailCollectionView.h */,
+				0AC186CE1E0A5B3C00F2A74D /* LYShopDetailCollectionView.m */,
+				0AC186D01E0A5C3100F2A74D /* LYCommonCollectionView.h */,
+				0AC186D11E0A5C3100F2A74D /* LYCommonCollectionView.m */,
+				0AC186D31E0A5DD000F2A74D /* LYCommonCollectionViewModel.h */,
+				0AC186D41E0A5DD000F2A74D /* LYCommonCollectionViewModel.m */,
+				0AC186D61E0A60C500F2A74D /* LYShopProductCollectionViewCell.h */,
+				0AC186D71E0A60C500F2A74D /* LYShopProductCollectionViewCell.m */,
+				0AC186DD1E0A62B700F2A74D /* LYShopProductCollectionCellViewModel.h */,
+				0AC186DE1E0A62B700F2A74D /* LYShopProductCollectionCellViewModel.m */,
+				0AC186E01E0A6A2000F2A74D /* LYShopDetailCollectionViewModel.h */,
+				0AC186E11E0A6A2000F2A74D /* LYShopDetailCollectionViewModel.m */,
+			);
+			name = CollectionView;
+			sourceTree = "<group>";
+		};
 		0AEB6E201E07929B004D47DF = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +173,8 @@
 		0AEB6E2B1E07929B004D47DF /* LYShopDetail */ = {
 			isa = PBXGroup;
 			children = (
+				0AC1875C1E0BDF8100F2A74D /* CollectionView */,
+				0AC1875B1E0BDF7100F2A74D /* ScrollView */,
 				0AC186D91E0A61EB00F2A74D /* Util */,
 				0AEB6E2F1E07929B004D47DF /* AppDelegate.h */,
 				0AEB6E301E07929B004D47DF /* AppDelegate.m */,
@@ -155,24 +192,8 @@
 				0AC186E71E0A701D00F2A74D /* LYShopDetailUserCase.m */,
 				0AC186C31E09424000F2A74D /* LYShopDetailHeaderView.h */,
 				0AC186C41E09424000F2A74D /* LYShopDetailHeaderView.m */,
-				0AC186C61E0A33A900F2A74D /* LYShopDetailScrollView.h */,
-				0AC186C71E0A33A900F2A74D /* LYShopDetailScrollView.m */,
-				0AC186CA1E0A5A9700F2A74D /* LYShopDetailTabScrollView.h */,
-				0AC186CB1E0A5A9700F2A74D /* LYShopDetailTabScrollView.m */,
-				0AC186EC1E0A7A7D00F2A74D /* LYShopDetailTabScrollViewModel.h */,
-				0AC186ED1E0A7A7D00F2A74D /* LYShopDetailTabScrollViewModel.m */,
-				0AC186CD1E0A5B3C00F2A74D /* LYShopDetailCollectionView.h */,
-				0AC186CE1E0A5B3C00F2A74D /* LYShopDetailCollectionView.m */,
-				0AC186D01E0A5C3100F2A74D /* LYCommonCollectionView.h */,
-				0AC186D11E0A5C3100F2A74D /* LYCommonCollectionView.m */,
-				0AC186D31E0A5DD000F2A74D /* LYCommonCollectionViewModel.h */,
-				0AC186D41E0A5DD000F2A74D /* LYCommonCollectionViewModel.m */,
-				0AC186D61E0A60C500F2A74D /* LYShopProductCollectionViewCell.h */,
-				0AC186D71E0A60C500F2A74D /* LYShopProductCollectionViewCell.m */,
-				0AC186DD1E0A62B700F2A74D /* LYShopProductCollectionCellViewModel.h */,
-				0AC186DE1E0A62B700F2A74D /* LYShopProductCollectionCellViewModel.m */,
-				0AC186E01E0A6A2000F2A74D /* LYShopDetailCollectionViewModel.h */,
-				0AC186E11E0A6A2000F2A74D /* LYShopDetailCollectionViewModel.m */,
+				0AC1875D1E0BDFE200F2A74D /* LYShopDetailNavigationBar.h */,
+				0AC1875E1E0BDFE200F2A74D /* LYShopDetailNavigationBar.m */,
 			);
 			path = LYShopDetail;
 			sourceTree = "<group>";
@@ -263,6 +284,7 @@
 				0AC186C51E09424000F2A74D /* LYShopDetailHeaderView.m in Sources */,
 				0AC186C81E0A33A900F2A74D /* LYShopDetailScrollView.m in Sources */,
 				0AC186CF1E0A5B3C00F2A74D /* LYShopDetailCollectionView.m in Sources */,
+				0AC1875F1E0BDFE200F2A74D /* LYShopDetailNavigationBar.m in Sources */,
 				0AC186E81E0A701D00F2A74D /* LYShopDetailUserCase.m in Sources */,
 				0AC186CC1E0A5A9700F2A74D /* LYShopDetailTabScrollView.m in Sources */,
 				0AEB6E311E07929B004D47DF /* AppDelegate.m in Sources */,

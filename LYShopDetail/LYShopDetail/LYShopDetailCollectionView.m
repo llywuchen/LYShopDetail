@@ -25,8 +25,10 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if(self){
+        _viewModel = [[LYShopDetailCollectionViewModel alloc]init];
         [self configureUI];
         [self configureContraints];
+        [self.collectionView registerClass:[LYShopProductCollectionViewCell class] forCellWithReuseIdentifier:@"ShopProductCollectionViewCell"];
         [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"CollectioViewFooterIdentifier"];
     }
     return self;
@@ -36,13 +38,6 @@
     self = [self initWithFrame:CGRectZero];
     if(self){
         _loadMoreBlock = loadMoreBlock;
-    }
-    return self;
-}
-- (instancetype)initWithFrame:(CGRect)frame viewModel:(LYShopDetailCollectionViewModel *)viewModel{
-    self = [self initWithFrame:frame];
-    if(self){
-        _viewModel = viewModel;
     }
     return self;
 }

@@ -84,7 +84,7 @@
         [data addObjectsFromArray:datasource];
         oldDataSource = data;
     }else{
-        oldDataSource = [NSMutableArray arrayWithArray:datasource];
+        self.homeDataSource = [NSMutableArray arrayWithArray:datasource];
     }
 }
 
