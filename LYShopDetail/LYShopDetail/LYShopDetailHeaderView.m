@@ -37,8 +37,7 @@
 
 #pragma mark -
 #pragma mark - LYShopDetailLevel
-#define levelImageHeight 20
-#define levelImageWidth 16
+#define levelImageWidth 12
 #define levelImageMargin 2.5
 @interface LYShopDetailLevel : UIView
 
@@ -49,6 +48,13 @@
 
 @implementation LYShopDetailLevel
 
+- (NSMutableArray *)imageViewArray{
+    if(!_imageViewArray){
+        _imageViewArray = [NSMutableArray array];
+    }
+    return _imageViewArray;
+}
+
 - (void)setLevel:(NSInteger)level{
     NSInteger levelStatus = (level-1)/4;
     NSInteger levelCount =(level<=0)?0:(level-levelStatus*4);
@@ -58,16 +64,16 @@
     }else if (levelStatus ==1){
         imageString = @"silverMedalIcon";
     }else{
-        imageString = @"goldMedalIcon";
+        imageString = @"level";
     }
-    for(UIImageView *imageView in _imageViewArray){
+    for(UIImageView *imageView in self.imageViewArray){
         [imageView removeFromSuperview];
     }
-    [_imageViewArray removeAllObjects];
+    [self.imageViewArray removeAllObjects];
     
     for(int i=0;i<levelCount;i++){
         UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageString]];
-        [_imageViewArray addObject:imageView];
+        [self.imageViewArray addObject:imageView];
         [self addSubview:imageView];
     }
     
@@ -76,10 +82,10 @@
 }
 
 - (void)configureContraints{
-    for(int i=0;i<_imageViewArray.count;i++){
-        UIImageView *imageView = _imageViewArray[i];
+    for(int i=0;i<self.imageViewArray.count;i++){
+        UIImageView *imageView = self.imageViewArray[i];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(self);
+            make.height.mas_equalTo(levelImageWidth);
             make.width.mas_equalTo(levelImageWidth);
             make.top.equalTo(self);
             make.left.equalTo(self).offset(i*(levelImageMargin+levelImageWidth));
@@ -91,7 +97,6 @@
 
 #pragma mark -
 #pragma mark - LYShopDetailHeaderView
-#define HeaderHeight 120
 @interface LYShopDetailHeaderView ()
 
 @property (nonatomic,strong) UIImageView *bgImageView;
@@ -110,10 +115,11 @@
     self = [super init];
     if(self){
         _bgImageView = [[UIImageView alloc]init];
-        _bgImageView.image = [UIImage imageNamed:@""];
+        _bgImageView.image = [UIImage imageNamed:@"head-bg"];
         [self addSubview:_bgImageView];
         
         _headerIcon = [[LYShopDetailHeaderIcon alloc]init];
+        _headerIcon.backgroundColor = [UIColor clearColor];
         _headerIcon.image = [UIImage imageNamed:@""];
         [self addSubview:_headerIcon];
         
@@ -126,20 +132,23 @@
         [self addSubview:_levelView];
         
         _fansLabel = [[UILabel alloc]init];
-        _fansLabel.font = [UIFont systemFontOfSize:12];
+        _fansLabel.font = [UIFont systemFontOfSize:13];
         _fansLabel.textColor = [UIColor whiteColor];
-        _fansLabel.text = [NSString stringWithFormat:@"%d\n粉丝数",0];
+        
+        _fansLabel.attributedText = [self fansLabelAttributeText:0];
         _fansLabel.textAlignment = NSTextAlignmentCenter;
         _fansLabel.numberOfLines = 0;
         [self addSubview:_fansLabel];
         
         _concernBtn = [[UIButton alloc]init];
-        [_concernBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [_concernBtn setImage:[UIImage imageNamed:@"concern-bg"] forState:UIControlStateNormal];
         [_concernBtn setTitle:@"关注" forState:UIControlStateNormal];
         [_concernBtn setTitle:@"已关注" forState:UIControlStateSelected];
-        _concernBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        _concernBtn.titleLabel.font = [UIFont systemFontOfSize:11];
         _concernBtn.titleLabel.textColor = [UIColor whiteColor];
-        _concernBtn.backgroundColor = [UIColor orangeColor];
+        _concernBtn.backgroundColor = [UIColor colorWithRGB:0xff5001];
+        _concernBtn.imageEdgeInsets = UIEdgeInsetsMake(5, 6, 5, 33);
+        _concernBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5);
         _concernBtn.layer.cornerRadius = 3;
         [self addSubview:_concernBtn];
         
@@ -166,12 +175,12 @@
     
     [self.fansLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.concernBtn);
-        make.right.equalTo(self.concernBtn.mas_left).offset(5);
+        make.right.equalTo(self.concernBtn.mas_left).offset(0);
         make.size.mas_equalTo(CGSizeMake(60, 50));
     }];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.headerIcon.mas_right).offset(5);
+        make.left.equalTo(self.headerIcon.mas_right).offset(12);
         make.right.equalTo(self.fansLabel.mas_left).offset(5);
         make.top.equalTo(self.headerIcon);
         make.height.equalTo(self.headerIcon).dividedBy(2);
@@ -179,18 +188,23 @@
     
     [self.levelView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.nameLabel);
-        make.centerY.equalTo(self.headerIcon).multipliedBy(1.25);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(3);
         make.height.equalTo(@20);
     }];
 }
 
+- (NSAttributedString *)fansLabelAttributeText:(NSInteger)fansCount{
+    NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%ld\n粉丝数",fansCount]];
+    [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:10.0] range:NSMakeRange(attriString.length-3, 3)];
+    return attriString;
+}
 
 - (void)bindData:(NSString *)bg icon:(NSString *)icon name:(NSString *)name level:(NSInteger)level fansCount:(NSInteger)fansCount isConcern:(BOOL)isConcern{
     _bgImageView.image = [UIImage imageNamed:bg];
     _headerIcon.image = [UIImage imageNamed:icon];
     _nameLabel.text = name;
     [self.levelView setLevel:level];
-    _fansLabel.text = [NSString stringWithFormat:@"%ld\n粉丝数",fansCount];
+    _fansLabel.attributedText = [self fansLabelAttributeText:fansCount];
     [_concernBtn setSelected:isConcern];
 }
 @end

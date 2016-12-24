@@ -31,12 +31,13 @@
         _buttonArray = [NSMutableArray array];
         for(int i=0;i<titleArray.count;i++){
             UIButton *btn = [[UIButton alloc]init];
-            btn.titleLabel.font = [UIFont systemFontOfSize:14];
+            btn.titleLabel.font = [UIFont systemFontOfSize:15];
+            btn.backgroundColor = [UIColor colorWithRGB:0xf9f9f9];
             [btn setTitle:titleArray[i] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-            btn.layer.borderWidth = 0.5;
-            btn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            [btn setTitleColor:[UIColor colorWithRGB:0x4c5053] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor colorWithRGB:0x4c5053] forState:UIControlStateDisabled];
+            btn.layer.borderWidth = 0.25;
+            btn.layer.borderColor = [UIColor colorWithRGB:0xededed].CGColor;
             btn.tag = i;
             [self addSubview:btn];
             [_buttonArray addObject:btn];
@@ -63,6 +64,8 @@
 
 #pragma mark -
 #pragma mark - ViewController
+#define HeaderHeight 95
+#define TabBarHeight 60
 @interface LYShopDetailViewController () <LYSelectTabBarDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) LYShopDetailNavigationBar *navigationBar;
@@ -123,7 +126,7 @@
             self.scrollView.couldScroll = false;
         }else if (offset<0&&self.scrollView.couldScroll&&y>0){
             self.scrollView.couldScroll = false;
-        }else if(y>=160){
+        }else if(y>=HeaderHeight+40){
             self.scrollView.couldScroll = true;
         }else if (y==0){
             self.scrollView.couldScroll = offset<=0?true:false;
@@ -155,13 +158,13 @@
     
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(_contentView);
-        make.height.mas_equalTo(120);
+        make.height.mas_equalTo(HeaderHeight);
     }];
     
     [self.selectBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
         make.top.equalTo(self.headerView.mas_bottom);
-        make.height.equalTo(@(80));
+        make.height.equalTo(@(TabBarHeight));
     }];
     
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -216,6 +219,10 @@
     if(!_selectBar){
         _selectBar = [[LYSelectTabBar alloc]initTitles:self.viewModel.tabBarTitleArray images:self.viewModel.tabBarTitleImageArray selectImages:self.viewModel.tabBarTitleSelImageArray indicatorImage:nil];
         _selectBar.delegate = self;
+        _selectBar.selectedColor = [UIColor colorWithRGB:0xf74600];
+        _selectBar.unSelectedColor = [UIColor blackColor];
+        _selectBar.font = [UIFont systemFontOfSize:10];
+//        _selectBar.indicatorImage = [UIImage im]
     }
     
     return _selectBar;
@@ -236,8 +243,8 @@
 #pragma mark ---- UISCrolloView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat y = scrollView.contentOffset.y;
-    if(y<=160&&y>=120){
-        y = -(y-120)/4;
+    if(y<=(HeaderHeight+40)&&y>=HeaderHeight){
+        y = -(y-HeaderHeight)/4;
 //        for(UIButton *btn in self.tabBar.titleBtnsArr){
 //            btn.titleEdgeInsets = UIEdgeInsetsMake(btn.titleEdgeInsets.top, btn.titleEdgeInsets.left, y, btn.titleEdgeInsets.right);
 //        }

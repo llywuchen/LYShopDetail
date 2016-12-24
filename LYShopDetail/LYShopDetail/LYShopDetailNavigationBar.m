@@ -20,35 +20,37 @@
 }
 
 - (void)configureUI{
-    self.backgroundColor = [UIColor lightTextColor];
+    self.backgroundColor = [UIColor colorWithRGB:0xf9f9f9];
     _backBtn = [[UIButton alloc]init];
-    [_backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-    [_backBtn setImage:[UIImage imageNamed:@"nav_backGrayH"] forState:UIControlStateHighlighted];
+    [_backBtn setImage:[UIImage imageNamed:@"nav-back"] forState:UIControlStateNormal];
+    [_backBtn setImage:[UIImage imageNamed:@"nav-back"] forState:UIControlStateHighlighted];
+    _backBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
     [self setButtonImageInsets:_backBtn];
     [self addSubview:_backBtn];
     
     _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_searchBtn setBackgroundImage:[UIImage imageNamed:@"side_sort_searchBack"] forState:UIControlStateNormal];
-    [_searchBtn setBackgroundImage:[UIImage imageNamed:@"side_sort_searchBack"] forState:UIControlStateHighlighted];
-    [_searchBtn setImage:[UIImage imageNamed:@"gomeplus_search_scale"] forState:UIControlStateNormal];
+    UIImage *image = [[UIImage imageNamed:@"nav-search-bg"] stretchableImageWithLeftCapWidth:3 topCapHeight:0];
+    [_searchBtn setBackgroundImage:image forState:UIControlStateNormal];
+    [_searchBtn setBackgroundImage:image forState:UIControlStateHighlighted];
+    [_searchBtn setImage:[UIImage imageNamed:@"nav-search"] forState:UIControlStateNormal];
     _searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [_searchBtn setTitle:@"搜索店铺内商品" forState:UIControlStateNormal];
-    [_searchBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-    [_searchBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0)];
-    [_searchBtn setTitleColor:[UIColor colorWithRGB:0x666666 alpha:1.0] forState:UIControlStateNormal];
+    [_searchBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 0)];
+    [_searchBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 17, 0, 0)];
+    [_searchBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     _searchBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [self addSubview:_searchBtn];
     
     _categoryBtn = [[UIButton alloc]init];
-    [_categoryBtn setImage:[UIImage imageNamed:@"button_bg_categoryNormal"] forState:UIControlStateNormal];
-    [_categoryBtn setImage:[UIImage imageNamed:@"life_sortGrayH"] forState:UIControlStateHighlighted];
-    _categoryBtn.enabled = NO;
+    [_categoryBtn setImage:[UIImage imageNamed:@"nav-catergary"] forState:UIControlStateNormal];
+    [_categoryBtn setImage:[UIImage imageNamed:@"nav-catergary"] forState:UIControlStateHighlighted];
+//    _categoryBtn.enabled = NO;
     [self setButtonImageInsets:_categoryBtn];
     [self addSubview:_categoryBtn];
     
     _moreBtn = [[UIButton alloc]init];
-    [_moreBtn setImage:[UIImage imageNamed:@"button_bg_more"] forState:UIControlStateNormal];
-    [_moreBtn setImage:[UIImage imageNamed:@"im_message_grayH"] forState:UIControlStateHighlighted];
+    [_moreBtn setImage:[UIImage imageNamed:@"nav-more"] forState:UIControlStateNormal];
+    [_moreBtn setImage:[UIImage imageNamed:@"nav-more"] forState:UIControlStateHighlighted];
     [self setButtonImageInsets:_moreBtn];
     [self addSubview:_moreBtn];
 }
