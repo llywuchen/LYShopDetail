@@ -75,6 +75,7 @@
 //    _tabBar = [[LYSelectTabBar alloc]initGMBTabBarWithDelegate:self Titles:[_viewModel tabBarTitleArray] selectedColor:[UIColor colorWithARGB:0xf66a6b] titleFont:[UIFont systemFontOfSize:12] animate:false indicatorImage:nil];
     _tabBar = [[LYSelectTabBar alloc]initTitles:[_viewModel tabBarTitleArray] images:nil selectImages:nil indicatorImage:nil];
     _tabBar.indicatorHeight = 0;
+    [_tabBar addTabButtonAssistAtIndex:3 normalImage:@"assist-no" descImage:@"assist-desc" ascImage:@"assist-asc"];
     _tabBar.backgroundColor = [UIColor colorWithRGB:0xffffff];
     [self addSubview:_tabBar];
     
@@ -155,7 +156,7 @@
 #pragma mark ---- action
 
 #pragma mark --- delegate
-- (void)tabBar:(LYSelectTabBar *)tabBar didSelectButtonFrom:(NSInteger)from to:(NSInteger)to{
+- (void)tabBar:(LYSelectTabBar *)tabBar didSelectButtonFrom:(NSInteger)from to:(NSInteger)to toAssistStatus:(LYTabBatAssistStatus)status{
     if(from!=to){
         _currentIndex = to;
         [self.scrollView showSubView:to];

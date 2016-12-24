@@ -21,12 +21,14 @@
     self = [super init];
     if(self){
         _statusImageView = [[UIImageView alloc]init];
+        _statusImageView.backgroundColor = [UIColor clearColor];
         _statusImageView.image = [UIImage imageNamed:@""];
         [self addSubview:_statusImageView];
         
         [_statusImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.right.equalTo(self).offset(-3);
-            make.size.mas_equalTo(CGSizeMake(10, 10));
+            make.top.equalTo(self).offset(-3);
+            make.right.equalTo(self).offset(4);
+            make.size.mas_equalTo(CGSizeMake(20, 20));
         }];
         self.backgroundColor = [UIColor lightTextColor];
     }
@@ -121,6 +123,7 @@
         _headerIcon = [[LYShopDetailHeaderIcon alloc]init];
         _headerIcon.backgroundColor = [UIColor clearColor];
         _headerIcon.image = [UIImage imageNamed:@""];
+        _headerIcon.statusImageView.image = [UIImage imageNamed:@"head-icon-gold"];
         [self addSubview:_headerIcon];
         
         _nameLabel = [[UILabel alloc]init];

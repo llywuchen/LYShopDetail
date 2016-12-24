@@ -261,15 +261,11 @@
 
 #pragma mark -
 #pragma mark - delegate
-- (void)tabBar:(LYSelectTabBar *)tabBar didSelectButtonFrom:(NSInteger)from to:(NSInteger)to{
+- (void)tabBar:(LYSelectTabBar *)tabBar didSelectButtonFrom:(NSInteger)from to:(NSInteger)to toAssistStatus:(LYTabBatAssistStatus)status{
     NSLog(@"didSelectButtonFrom %ld to %ld",from,to);
     if(from==to) return;
     [self.scrollView showSubView:to];
     [self.viewModel showTabActionAtIndex:to];
-}
-
-- (void)tabBar:(LYSelectTabBar *)tabBar willSelectButtonFrom:(NSInteger)from to:(NSInteger)to{
-    NSLog(@"willSelectButtonFrom %ld to %ld",from,to);
 }
 
 @end
