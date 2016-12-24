@@ -142,20 +142,20 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat cellW = (kScreenWidth-1)/2;
+    CGFloat cellW = (kScreenWidth-0)/2;
     CGFloat cellH = 270*(cellW/187);
     return CGSizeMake(cellW , cellH);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 1.0;
+    return 0.0;
 }
 
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 1.0;
+    return 0.0;
 }
 #pragma mark ---- UICollectionViewDelegate
 

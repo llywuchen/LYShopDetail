@@ -31,6 +31,7 @@ static NSString *const  ShopProductCollectionViewCell = @"GMPShopProductCollecti
         }
         
         self.backgroundColor = [UIColor colorWithARGB:0xececec];
+//        self.backgroundColor = [UIColor whiteColor];
         
         [self registerClass:[LYShopProductCollectionViewCell class] forCellWithReuseIdentifier:ShopProductCollectionViewCell];
     }
@@ -47,6 +48,7 @@ static NSString *const  ShopProductCollectionViewCell = @"GMPShopProductCollecti
         }
         
         self.backgroundColor = [UIColor colorWithARGB:0xe4e4e4];
+//        self.backgroundColor = [UIColor whiteColor];
         
         [self registerClass:[LYShopProductCollectionViewCell class] forCellWithReuseIdentifier:ShopProductCollectionViewCell];
     }

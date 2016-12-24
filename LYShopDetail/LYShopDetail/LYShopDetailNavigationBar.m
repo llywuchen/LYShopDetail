@@ -8,6 +8,12 @@
 
 #import "LYShopDetailNavigationBar.h"
 
+@interface LYShopDetailNavigationBar ()
+
+@property (nonatomic,strong) UIView *line;
+
+@end
+
 @implementation LYShopDetailNavigationBar
 
 - (instancetype)init{
@@ -53,6 +59,10 @@
     [_moreBtn setImage:[UIImage imageNamed:@"nav-more"] forState:UIControlStateHighlighted];
     [self setButtonImageInsets:_moreBtn];
     [self addSubview:_moreBtn];
+    
+    _line = [[UIView alloc]init];
+    _line.backgroundColor = [UIColor lightGrayColor];
+    [self addSubview:_line];
 }
 
 - (void)setButtonImageInsets:(UIButton *)button{
@@ -82,6 +92,11 @@
         make.left.equalTo(_backBtn.mas_right).offset(5);
         make.right.equalTo(_categoryBtn.mas_left).offset(1);
         make.top.height.equalTo(_backBtn);
+    }];
+    
+    [_line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self);
+        make.height.equalTo(@0.5);
     }];
 }
 

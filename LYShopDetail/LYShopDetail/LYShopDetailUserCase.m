@@ -14,7 +14,7 @@
 + (instancetype)testInfo{
     LYShopDetailInfo *info = [[LYShopDetailInfo alloc]init];
     info.bgImage = @"head-bg";
-    info.icon = @"icon";
+    info.icon = @"head-icon";
     info.name = @"路无尘超级旗舰店";
     info.level = 1000;
     info.fansCount = 1000;

@@ -66,6 +66,7 @@
 #pragma mark - ViewController
 #define HeaderHeight 95
 #define TabBarHeight 60
+#define TabBarTopHeight 35
 @interface LYShopDetailViewController () <LYSelectTabBarDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) LYShopDetailNavigationBar *navigationBar;
@@ -126,7 +127,7 @@
             self.scrollView.couldScroll = false;
         }else if (offset<0&&self.scrollView.couldScroll&&y>0){
             self.scrollView.couldScroll = false;
-        }else if(y>=HeaderHeight+40){
+        }else if(y>=HeaderHeight+TabBarHeight-TabBarTopHeight){
             self.scrollView.couldScroll = true;
         }else if (y==0){
             self.scrollView.couldScroll = offset<=0?true:false;
@@ -160,7 +161,7 @@
         make.left.right.top.equalTo(_contentView);
         make.height.mas_equalTo(HeaderHeight);
     }];
-    
+
     [self.selectBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
         make.top.equalTo(self.headerView.mas_bottom);
@@ -173,8 +174,8 @@
     }];
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(_contentView);
-        make.top.equalTo(self.selectBar.mas_bottom).offset(10);
-        make.height.equalTo(@(kScreenHeight-64 -50 -49));
+        make.top.equalTo(self.selectBar.mas_bottom).offset(0);
+        make.height.equalTo(@(kScreenHeight-64 -TabBarTopHeight -49));
     }];
     
     [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -243,11 +244,18 @@
 #pragma mark ---- UISCrolloView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat y = scrollView.contentOffset.y;
-    if(y<=(HeaderHeight+40)&&y>=HeaderHeight){
-        y = -(y-HeaderHeight)/4;
+    if(y<=(HeaderHeight+TabBarHeight-TabBarTopHeight)&&y>=HeaderHeight){
+        y = -(y-HeaderHeight)/((TabBarHeight-TabBarTopHeight)/10);
+        [self.selectBar setButtonImageAlpha:1 - ABS(y)/10];
+        [self.selectBar setTitleFontSize:10+ABS(y)/3];
+//        [self.selectBar setTitleOffset:<#(CGFloat)#>]
+
 //        for(UIButton *btn in self.tabBar.titleBtnsArr){
 //            btn.titleEdgeInsets = UIEdgeInsetsMake(btn.titleEdgeInsets.top, btn.titleEdgeInsets.left, y, btn.titleEdgeInsets.right);
 //        }
+    }else{
+        [self.selectBar setButtonImageAlpha:1];
+        [self.selectBar setTitleFontSize:10];
     }
 }
 
