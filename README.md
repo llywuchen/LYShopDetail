@@ -1,7 +1,8 @@
 # LYShopDetail
 
 ### LYShopDetail
-taobao App shopDetail
+#####taobao App shopDetail
+#####MVVM 纯代码约束自动布局 吸顶动画效果
 
 ### CocoaPods
 
