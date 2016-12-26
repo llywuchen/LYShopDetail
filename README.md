@@ -22,8 +22,8 @@ $ carthage update LYSelectTabBar
 
 ## Screenshots
 
-![LYShopDetail](https://github.com/llywuchen/LYShopDetail/Screenshots/s1 "LYShopDetail")
-![LYShopDetail](https://github.com/llywuchen/LYShopDetail/Screenshots/s2 "LYShopDetail")
-![LYShopDetail](https://github.com/llywuchen/LYShopDetail/Screenshots/s3 "LYShopDetail")
+![LYShopDetail](https://raw.githubusercontent.com/llywuchen/LYShopDetail/master/Screenshots/s1.png "LYShopDetail")
+![LYShopDetail](https://raw.githubusercontent.com/llywuchen/LYShopDetail/master/Screenshots/s2.png "LYShopDetail")
+![LYShopDetail](https://raw.githubusercontent.com/llywuchen/LYShopDetail/master/Screenshots/s3.png "LYShopDetail")
 
 
