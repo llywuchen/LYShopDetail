@@ -73,6 +73,9 @@
 - (void)configureTabBar{
     _tabBar = [[LYSelectTabBar alloc]initTitles:[_viewModel tabBarTitleArray] images:nil selectImages:nil indicatorImage:nil];
     _tabBar.indicatorHeight = 0;
+    _tabBar.selectedColor = [UIColor colorWithRGB:0xf74600];
+    _tabBar.unSelectedColor = [UIColor colorWithRGB:0x7e7e7e];
+    _tabBar.font = [UIFont systemFontOfSize:14];
     _tabBar.delegate = self;
     [_tabBar addTabButtonAssistAtIndex:3 normalImage:@"assist-no" descImage:@"assist-desc" ascImage:@"assist-asc"];
     _tabBar.backgroundColor = [UIColor colorWithRGB:0xffffff];
