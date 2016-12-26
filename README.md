@@ -4,9 +4,9 @@
 #####taobao App shopDetail
 #####MVVM 纯代码约束自动布局 吸顶动画效果
 
-### CocoaPods
+### carthage
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
+[carthage](https://github.com/Carthage/Carthage.git) is a dependency manager for Cocoa projects.
 
 You can install it with the following command:
 
