@@ -169,16 +169,9 @@
 {
     NSLog(@"进入到商品详情页");
 }
+
 #pragma mark -
 #pragma mark --- scrollDelegate
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-//    if(velocity.y==0) {
-//        _DragStatus = DragStatus_NO;
-//    }else{
-//        _DragStatus = (scrollView.contentOffset.y - targetContentOffset->y)>0?DragStatus_TOP:DragStatus_BOTTOM;
-//    }
-}
-
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat y = scrollView.contentOffset.y;
@@ -199,7 +192,6 @@
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 //    _pageShowView.hidden = true;
-//    _DragStatus = DragStatus_NO;
 }
 
 @end

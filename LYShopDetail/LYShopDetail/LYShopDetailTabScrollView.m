@@ -81,6 +81,11 @@
 
 - (void)bindViewModel{
     @weakify(self)
+    [self.scrollView setTabBarSelBlock:^(NSInteger index) {
+        @strongify(self)
+        [self.tabBar setSelectedIndex:index];
+        [self.viewModel loadDataRequestAtIndex:index isLoadMore:false];
+    }];
     [[RACObserve(self.viewModel, allCommonDataSource) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
         @strongify(self)
         [self bindData:x atIndex:0];

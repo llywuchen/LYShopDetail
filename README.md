@@ -15,7 +15,7 @@ $ brew update
 $ brew install carthage
 ```
 ###LYSelectTabBar
-[LYSelectTabBar](https://github.com/llywuchen/LYSelectTabBar.git) is a dependency manager for this projects.
+[LYSelectTabBar](https://github.com/llywuchen/LYSelectTabBar.git) is a dependency for this projects.
 
 ```bash
 $ carthage update LYSelectTabBar

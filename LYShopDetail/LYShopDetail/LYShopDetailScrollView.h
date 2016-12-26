@@ -13,7 +13,6 @@
 @property (nonatomic,strong,readonly) NSArray<UIView *> *subViews;
 @property (nonatomic,copy) void (^tabBarSelBlock)(NSInteger index);
 @property (nonatomic,copy) void (^translationBlock)(CGFloat offset);
-@property (nonatomic,assign) BOOL canSwip;
 @property (nonatomic,assign) BOOL couldScroll;
 
 - (instancetype)initWithSubViews:(NSArray *)subViews;

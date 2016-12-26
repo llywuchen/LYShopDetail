@@ -27,9 +27,8 @@
             view.tag = i;
             [self addSubview:view];
         }
-        _canSwip = false;
         self.delegate = self;
-        self.scrollEnabled = false;
+        self.pagingEnabled = YES;
         [self configureContraints];
     }
     return self;
@@ -47,6 +46,10 @@
     
 }
 
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    self.contentSize = CGSizeMake(kScreenWidth*_subViews.count, self.frame.size.height);
+}
 
 - (void)showSubView:(NSInteger)index{
     //主动切换
@@ -70,10 +73,6 @@
         [view setValue:_translationBlock forKey:@"translationBlock"];
     }
     
-}
-- (void)setCanSwip:(BOOL)canSwip{
-    _canSwip = canSwip;
-    self.scrollEnabled = _canSwip;
 }
 
 - (UIScrollView *)currentSubScorllView{

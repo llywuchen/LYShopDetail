@@ -133,6 +133,11 @@
             self.scrollView.couldScroll = offset<=0?true:false;
         }
     }];
+    [self.scrollView setTabBarSelBlock:^(NSInteger index) {
+        @strongify(self)
+        [self.selectBar setSelectedIndex:index];
+        [self.viewModel showTabActionAtIndex:index];
+    }];
 }
 
 - (void)configureBottomView{
@@ -232,7 +237,7 @@
         _mianScrollView = [[UIScrollView alloc]init];
         _mianScrollView.delegate = self;
         _mianScrollView.showsVerticalScrollIndicator = NO;
-        _mianScrollView.scrollEnabled = true;
+        _mianScrollView.scrollEnabled = false;
         _mianScrollView.bounces = NO;
     }
     return _mianScrollView;
