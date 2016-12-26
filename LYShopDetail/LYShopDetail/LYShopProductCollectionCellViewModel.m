@@ -26,7 +26,10 @@
     return  self;
 }
 + (instancetype)testInfo{
-    LYShopProductCollectionCellViewData *data = [[LYShopProductCollectionCellViewData alloc]initWithProductID:0 shopID:0 productMainImage:@"product-icon" productName:@"超强人工智能机器人九代III" productsalePrice:1898888 originalPrice:1898888 isRebate:YES isDiscount:YES onShelfAt:5435345345345];
+    NSInteger price = (arc4random()+100000000)%100000;
+    NSInteger originalPrice = (arc4random()+100000000)%100000;
+    NSInteger index = (arc4random()+100)%100;
+    LYShopProductCollectionCellViewData *data = [[LYShopProductCollectionCellViewData alloc]initWithProductID:0 shopID:0 productMainImage:@"product-icon" productName:[NSString stringWithFormat:@"超强人工智能机器人%ld代III",index] productsalePrice:price originalPrice:originalPrice isRebate:YES isDiscount:YES onShelfAt:5435345345345];
     return data;
 }
 @end

@@ -190,18 +190,17 @@
         LYShopDetailInfo *info = x;
         [self.headerView bindData:info.bgImage icon:info.icon name:info.name level:info.level fansCount:info.fansCount isConcern:info.isConcern];
     }];
-    
-    [RACObserve(self.viewModel, homeDataSource) subscribeNext:^(id  _Nullable x) {
+    [[RACObserve(self.viewModel, homeDataSource) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id  _Nullable x) {
         LYShopDetailCollectionView *view = (LYShopDetailCollectionView *)[self.scrollView subScorllViewAtIndex:0];
         [view bindData:x];
         [view setTotalPage:self.viewModel.homeTotalPage];
     }];
-    [RACObserve(self.viewModel, newsDataSource) subscribeNext:^(id  _Nullable x) {
+    [[RACObserve(self.viewModel, newsDataSource) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id  _Nullable x) {
         LYShopDetailCollectionView *view = (LYShopDetailCollectionView *)[self.scrollView subScorllViewAtIndex:2];
         [view bindData:x];
         [view setTotalPage:self.viewModel.newTotalPage];
     }];
-    [RACObserve(self.viewModel, dymicDataSource) subscribeNext:^(id  _Nullable x) {
+    [[RACObserve(self.viewModel, dymicDataSource) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id  _Nullable x) {
         LYShopDetailCollectionView *view = (LYShopDetailCollectionView *)[self.scrollView subScorllViewAtIndex:3];
         [view bindData:x];
         [view setTotalPage:self.viewModel.dymicTotalPage];
@@ -223,7 +222,6 @@
         _selectBar.selectedColor = [UIColor colorWithRGB:0xf74600];
         _selectBar.unSelectedColor = [UIColor blackColor];
         _selectBar.font = [UIFont systemFontOfSize:10];
-//        _selectBar.indicatorImage = [UIImage im]
     }
     
     return _selectBar;
@@ -236,7 +234,6 @@
         _mianScrollView.showsVerticalScrollIndicator = NO;
         _mianScrollView.scrollEnabled = true;
         _mianScrollView.bounces = NO;
-//        _mianScrollView.backgroundColor = GM_JS_ORDER_COLOR_BG;
     }
     return _mianScrollView;
 }
@@ -248,11 +245,6 @@
         y = -(y-HeaderHeight)/((TabBarHeight-TabBarTopHeight)/10);
         [self.selectBar setButtonImageAlpha:1 - ABS(y)/10];
         [self.selectBar setTitleFontSize:10+ABS(y)/3];
-//        [self.selectBar setTitleOffset:<#(CGFloat)#>]
-
-//        for(UIButton *btn in self.tabBar.titleBtnsArr){
-//            btn.titleEdgeInsets = UIEdgeInsetsMake(btn.titleEdgeInsets.top, btn.titleEdgeInsets.left, y, btn.titleEdgeInsets.right);
-//        }
     }else{
         [self.selectBar setButtonImageAlpha:1];
         [self.selectBar setTitleFontSize:10];

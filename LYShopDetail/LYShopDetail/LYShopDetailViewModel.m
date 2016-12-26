@@ -77,14 +77,30 @@
 }
 
 - (void)setDataSoure:(NSArray *)datasource AtIndex:(NSInteger)index isLoadMore:(BOOL)isLoadMore{
-    NSMutableArray *oldDataSource = [self dataSourceAtIndex:index];
+    NSArray *oldDataSource = [self dataSourceAtIndex:index];
+    NSMutableArray *newDataSource = [NSMutableArray arrayWithArray:datasource];
     if(isLoadMore){
-        if(!oldDataSource) oldDataSource = [NSMutableArray array];
-        NSMutableArray *data = [NSMutableArray arrayWithArray:oldDataSource];
-        [data addObjectsFromArray:datasource];
-        oldDataSource = data;
-    }else{
-        self.homeDataSource = [NSMutableArray arrayWithArray:datasource];
+        [newDataSource addObjectsFromArray:oldDataSource];
+    }
+    switch (index) {
+        case 0:
+        {
+            self.homeDataSource = newDataSource;
+        }
+            break;
+        case 2:
+        {
+            self.newsDataSource = newDataSource;
+        }
+            break;
+        case 3:
+        {
+            self.dymicDataSource = newDataSource;
+        }
+            break;
+            
+        default:
+            break;
     }
 }
 
@@ -101,10 +117,12 @@
 }
 
 - (void)requestDataAtIndex:(NSInteger)index isLoadMore:(BOOL)isLoadMore{
+    if(!isLoadMore&&[self dataSourceAtIndex:index].count>0)
+        return;
     if(_currentIndex==1){
         
     }else{
-        [self.userCase shopProductInfoRequestWithShopId:_shopId type:_currentIndex Success:^(NSArray *array) {
+        [self.userCase shopProductInfoRequestWithShopId:_shopId type:_currentIndex order:false pageNum:0 pageSize:20 Success:^(NSArray *array) {
             [self setDataSoure:array AtIndex:index isLoadMore:isLoadMore];
         } fail:^(NSString *errorMsg) {
             

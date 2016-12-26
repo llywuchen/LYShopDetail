@@ -7,9 +7,11 @@
 //
 
 #import "LYShopDetailTabScrollViewModel.h"
+#import "LYShopDetailUserCase.h"
 
 @interface LYShopDetailTabScrollViewModel ()
 
+@property (nonatomic,strong) LYShopDetailUserCase *uesrCase;
 @property (nonatomic,assign) NSInteger commonTotalPage;//推荐tab 当前的分页
 @property (nonatomic,assign) NSInteger salesTotalPage;//推荐tab 当前的分页
 @property (nonatomic,assign) NSInteger priceTotalPage;//推荐tab 当前的分页
@@ -26,6 +28,8 @@
         _salesTotalPage = 1;
         _newTotalPage = 1;
         _priceTotalPage = 1;
+        _uesrCase = [[LYShopDetailUserCase alloc]init];
+        [self loadDataRequestAtIndex:0 isLoadMore:false];
     }
     return self;
 }
@@ -67,7 +71,7 @@
     
 }
 
-- (void)setDataSource:(NSMutableArray *)array atIndex:(NSInteger)index isLoadMore:(BOOL)isLoadMore{
+- (void)setDataSource:(NSArray *)array atIndex:(NSInteger)index isLoadMore:(BOOL)isLoadMore{
     switch (index) {
         case LYShopDetailAllProduct_common:
         {
@@ -77,7 +81,7 @@
                 [data addObjectsFromArray:array];
                 self.allCommonDataSource = data;
             }else{
-                self.allCommonDataSource = array;
+                self.allCommonDataSource = [NSMutableArray arrayWithArray:array];
             }
         }
             break;
@@ -89,7 +93,7 @@
                 [data addObjectsFromArray:array];
                 self.allSalesDataSource = data;
             }else{
-                self.allSalesDataSource = array;
+                self.allSalesDataSource = [NSMutableArray arrayWithArray:array];
             }
         }
             break;
@@ -101,7 +105,7 @@
                 [data addObjectsFromArray:array];
                 self.allPriceDataSource = data;
             }else{
-                self.allPriceDataSource = array;
+                self.allPriceDataSource = [NSMutableArray arrayWithArray:array];
             }
         }
             break;
@@ -113,7 +117,7 @@
                 [data addObjectsFromArray:array];
                 self.allNewDataSource = data;
             }else{
-                self.allNewDataSource = array;
+                self.allNewDataSource = [NSMutableArray arrayWithArray:array];
             }
         }
             break;
@@ -125,11 +129,11 @@
 }
 
 - (void)setTotalPageAtIndex:(NSInteger)index totalPage:(NSInteger)totalPage{
-    if(index ==0){
+    if(index == 0){
         self.commonTotalPage = totalPage;
-    }else if (index ==1){
+    }else if (index == 1){
         self.salesTotalPage = totalPage;
-    }else if (index ==2){
+    }else if (index == 2){
         self.priceTotalPage = totalPage;
     }else{
         self.newTotalPage = totalPage;
@@ -137,11 +141,11 @@
 }
 
 - (NSInteger)getTotalPageAtIndex:(NSInteger)index{
-    if(index ==0){
+    if(index == 0){
         return self.commonTotalPage;
-    }else if (index ==1){
+    }else if (index == 1){
         return self.salesTotalPage;
-    }else if (index ==2){
+    }else if (index == 2){
         return self.priceTotalPage;
     }else{
         return self.newTotalPage;
@@ -151,28 +155,21 @@
 #pragma mark -
 #pragma mark --- request
 - (void)loadDataRequestAtIndex:(NSInteger)index isLoadMore:(BOOL)isLoadMore{
-    BOOL isOrder = true;
-    if(index ==2){
-        isOrder = false;
-    }
-    [self loadDataRequestAtIndex:index isLoadMore:isLoadMore isOrder:isOrder];
+    [self loadDataRequestAtIndex:index isLoadMore:isLoadMore isOrder:false];
 }
 
 - (void)loadDataRequestAtIndex:(NSInteger)index isLoadMore:(BOOL)isLoadMore isOrder:(BOOL)order{
     int currentPage = 0;
     if(isLoadMore){
         currentPage = (int)([self dataSourceAtIndex:index].count-1)/20+1;
-    }else if([self dataSourceAtIndex:index].count>0 && index != 2){
+    }else if([self dataSourceAtIndex:index].count>0 && index != 3){
         return;
     }
-//    [GMShopDetailUserCaseInstance allProductsRequestWithShopId:self.shopId allProductType:index order:order pageNum:++currentPage pageSize:20 Success:^(GMBShopSearchItemsModel *model) {
-//        [self setTotalPageAtIndex:index totalPage:model.pageCount];
-//        [self setDataSource:[self transfromSearch:model.items] atIndex:index isLoadMore:isLoadMore];
-//        [self.endRefreshingAction execute:nil];
-//    } fail:^(NSString *errorMsg) {
+    [_uesrCase shopProductInfoRequestWithShopId:self.shopId type:index order:order pageNum:++currentPage pageSize:20 Success:^(NSArray *array) {
+        [self setDataSource:array atIndex:index isLoadMore:isLoadMore];
+    } fail:^(NSString *errorMsg) {
 //        self.toastMessage = errorMsg;
-//        [self.endRefreshingAction execute:nil];
-//    }];
+    }];
 }
 
 #pragma mark -

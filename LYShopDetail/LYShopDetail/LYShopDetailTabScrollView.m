@@ -17,7 +17,7 @@
 @property (nonatomic,strong) LYSelectTabBar *tabBar;
 @property (nonatomic,strong) LYShopDetailScrollView *scrollView;
 @property (nonatomic,assign) NSInteger currentIndex;
-@property (nonatomic,copy) void (^translationBlock)(CGFloat offset,BOOL isScrollTop);
+@property (nonatomic,copy)   void (^translationBlock)(CGFloat offset,BOOL isScrollTop);
 
 @property (nonatomic,strong) LYShopDetailTabScrollViewModel *viewModel;
 
@@ -47,7 +47,6 @@
         _scrollView = [[LYShopDetailScrollView alloc]initWithSubViews:subViews];
         _scrollView.contentSize = CGSizeMake(kScreenWidth * count, kScreenHeight - 120 - 80 - 64 - 40 -40);
         _scrollView.bounces = NO;
-//        _scrollView.backgroundColor = GM_JS_ORDER_COLOR_BG;
         _scrollView.pagingEnabled = YES;
         [self addSubview:_scrollView];
         
@@ -72,43 +71,31 @@
 }
 
 - (void)configureTabBar{
-//    _tabBar = [[LYSelectTabBar alloc]initGMBTabBarWithDelegate:self Titles:[_viewModel tabBarTitleArray] selectedColor:[UIColor colorWithARGB:0xf66a6b] titleFont:[UIFont systemFontOfSize:12] animate:false indicatorImage:nil];
     _tabBar = [[LYSelectTabBar alloc]initTitles:[_viewModel tabBarTitleArray] images:nil selectImages:nil indicatorImage:nil];
     _tabBar.indicatorHeight = 0;
+    _tabBar.delegate = self;
     [_tabBar addTabButtonAssistAtIndex:3 normalImage:@"assist-no" descImage:@"assist-desc" ascImage:@"assist-asc"];
     _tabBar.backgroundColor = [UIColor colorWithRGB:0xffffff];
     [self addSubview:_tabBar];
-    
-//    NSArray *images = [self.viewModel tabBarTitleImageArray];
-//    NSArray *selImages = [self.viewModel tabBarTitleSelImageArray];
-//    if(images.count&&selImages.count){
-//        for(int i=0;i<images.count;i++){
-//            NSString *imageStr = images[i];
-//            if(imageStr.length>0&&selImages.count>i){
-//                NSString *selImageStr = selImages[i];
-//                [_tabBar setTabButtonImage:imageStr selImageStr:selImageStr atIndex:i imageWidth:30];
-//            }
-//        }
-//    }
 }
 
 - (void)bindViewModel{
     @weakify(self)
-    [RACObserve(self.viewModel, allCommonDataSource) subscribeNext:^(id x) {
+    [[RACObserve(self.viewModel, allCommonDataSource) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
         @strongify(self)
         [self bindData:x atIndex:0];
     }];
-    [RACObserve(self.viewModel, allSalesDataSource) subscribeNext:^(id x) {
+    [[RACObserve(self.viewModel, allSalesDataSource) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
         @strongify(self)
         [self bindData:x atIndex:1];
     }];
-    [RACObserve(self.viewModel, allPriceDataSource) subscribeNext:^(id x) {
-        @strongify(self)
-        [self bindData:x atIndex:2];
-    }];
-    [RACObserve(self.viewModel, allNewDataSource) subscribeNext:^(id x) {
+    [[RACObserve(self.viewModel, allPriceDataSource) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
         @strongify(self)
         [self bindData:x atIndex:3];
+    }];
+    [[RACObserve(self.viewModel, allNewDataSource) deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
+        @strongify(self)
+        [self bindData:x atIndex:2];
     }];
     
 //    [RACObserve(self.viewModel, toastMessage) subscribeNext:^(id x) {
@@ -157,18 +144,10 @@
 
 #pragma mark --- delegate
 - (void)tabBar:(LYSelectTabBar *)tabBar didSelectButtonFrom:(NSInteger)from to:(NSInteger)to toAssistStatus:(LYTabBatAssistStatus)status{
-    if(from!=to){
+    if(from!=to||(from==to&&to==3)){
         _currentIndex = to;
         [self.scrollView showSubView:to];
-//        [self.tabBar setButtonTitleColorSelected:false index:from];
-//        [self.tabBar setButtonTitleColorSelected:true index:to];
-        [self.viewModel loadDataRequestAtIndex:_currentIndex isLoadMore:false];
-    }
-    else{
-//        UIButton *selectedBtn = [tabBar buttonAtIndex:from];
-//        [selectedBtn setSelected:!selectedBtn.isSelected];
-//        [self.tabBar setButtonTitleColorSelected:true index:to];
-//        [self butttonClick:selectedBtn.isSelected buttonIndex:selectedBtn.tag];
+        [self.viewModel loadDataRequestAtIndex:_currentIndex isLoadMore:false isOrder:to==3?status:false];
     }
 }
 
@@ -192,11 +171,5 @@
 - (void)setCouldScroll:(BOOL)scrollEnabled;{
     [self.scrollView setCouldScroll:scrollEnabled];
 }
-
-//- (void)setContentOffset:(CGFloat)offset{
-//    for(LYShopDetailCollectionView *view in self.scrollView.subViews){
-//        [view setContentOffset:offset];
-//    }
-//}
 
 @end

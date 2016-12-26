@@ -31,6 +31,9 @@
 
 - (void)shopProductInfoRequestWithShopId:(long)shopId
                             type:(NSInteger)type
+                                   order:(BOOL)isDesc
+                                 pageNum:(NSInteger)pageNum
+                                pageSize:(NSInteger)pageSize
                           Success:(void(^)(NSArray *))successBlock
                              fail:(void(^)(NSString *errorMsg))failBlock;
 @end

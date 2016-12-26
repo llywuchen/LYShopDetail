@@ -38,12 +38,16 @@
 
 - (void)shopProductInfoRequestWithShopId:(long)shopId
                                     type:(NSInteger)type
+                                   order:(BOOL)isDesc
+                                 pageNum:(NSInteger)pageNum
+                                pageSize:(NSInteger)pageSize
                                  Success:(void(^)(NSArray *))successBlock
                                     fail:(void(^)(NSString *errorMsg))failBlock{
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSMutableArray *array = [NSMutableArray arrayWithObject:[LYShopProductCollectionCellViewData testInfo]];
-        for(int i=0;i<35;i++){
-            [array addObject:[LYShopProductCollectionCellViewData testInfo]];
+        NSMutableArray *array = [NSMutableArray array];
+        for(int i=0;i<pageSize;i++){
+            LYShopProductCollectionCellViewData *data = [LYShopProductCollectionCellViewData testInfo];
+            [array addObject:data];
         }
         successBlock(array);
     });
