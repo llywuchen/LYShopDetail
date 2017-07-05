@@ -20,11 +20,20 @@ $ brew install carthage
 >[LYSelectTabBar](https://github.com/llywuchen/LYSelectTabBar.git) is a dependency for this projects.
 
 >这是一个便捷高效的tabBar封装控件：[https://github.com/llywuchen/LYSelectTabBar](https://github.com/llywuchen/LYSelectTabBar.git)
+>
+>执行下面的脚本更新依赖：
 
 ```bash
-$ carthage update LYSelectTabBar
+$ sh update.sh
 ```
 
+
+
+### 后记
+
+> 觉得不错的话，请帮忙加个star，有时间会继续更新和改进。
+>
+> 有啥问题欢迎与作者联系，感谢关注，谢谢。
 
 ## Screenshots
 
